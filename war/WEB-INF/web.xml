@@ -35,6 +35,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>unsubscribe</servlet-name>
+        <servlet-class>guestbook2.OfyUnsubscribe</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>unsubscribe</servlet-name>
+        <url-pattern>/ofyunsubscribe</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>CronServlet</servlet-name>
         <servlet-class>guestbook2.CronServlet</servlet-class>
     </servlet>

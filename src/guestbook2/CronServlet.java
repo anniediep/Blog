@@ -31,12 +31,14 @@ throws IOException {
 try {
 _logger.info("Cron has been executed");
 
-//MimeMessage message = new MimeMessage(session, req.getInputStream());
-
+//get list of emails
 ObjectifyService.register(Email.class);
-
 Query<Email> query = ofy().load().type(Email.class);
 List<Email> emailList = query.list();
+
+//get blog posts
+ObjectifyService.register(Greeting.class);
+List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).list();   
 
 //if(!emailList.isEmpty()){
 //	System.out.println("Tester");
@@ -47,12 +49,14 @@ List<Email> emailList = query.list();
 String strCallResult = "";
 
 //Body of the email
-/*
-for(Email body: emailList){
-strCallResult += "Testing";
+
+for(Greeting body: greetings){
+strCallResult += "Testing" + "\r\n";
+strCallResult += body.getTitle() + "\r\n"; 
+strCallResult += body.getContent() + "\r\n"; 
+strCallResult += "==============================================" + "\r\n";
+strCallResult += "Thank you for subscribing to our daily blog updates" + "\r\n";
 }
-*/
-strCallResult += "Testing";
 
 /*
 ExamResult ER = ExamResultDAO.INSTANCE.getExamResult(studentID);

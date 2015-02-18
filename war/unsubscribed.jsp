@@ -29,7 +29,7 @@ User user = userService.getCurrentUser();
   </head>
  
   <body>
-  		<p>You have been subscribed! :^)</p>
+  		<p>You have been unsubscribed. :^(</p>
   	  		
   		
   		<p><a href = "ofyguestbook2.jsp" >Click here</a> to return to the home page.</p>

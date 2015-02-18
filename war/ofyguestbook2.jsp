@@ -73,6 +73,7 @@ to create a post.</p>
         for (Greeting greeting : posts) {
         	pageContext.setAttribute("greeting_title", greeting.getTitle());
             pageContext.setAttribute("greeting_content",  greeting.getContent());
+            pageContext.setAttribute("greeting_date",  greeting.getDate());
             if (greeting.getUser() == null) {
                 %>
                 <p>An anonymous person wrote:</p>
@@ -80,7 +81,7 @@ to create a post.</p>
             } else {
                 pageContext.setAttribute("greeting_user", greeting.getUser());
                 %>
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
+                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote on <b>${fn:escapeXml(greeting_date)}</b>:</p>
                 <%
             }
             %>
@@ -102,6 +103,12 @@ if(user != null){ %>
 <form action = "subscribeform.jsp" method = "link">
 	<div>
 		<input type = "submit" value = "Subscribe" />
+	</div>
+</form>
+
+<form action = "unsubscribeform.jsp" method = "link">
+	<div>
+		<input type = "submit" value = "Unsubscribe" />
 	</div>
 </form>
 <%

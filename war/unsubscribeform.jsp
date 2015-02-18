@@ -20,27 +20,26 @@ User user = userService.getCurrentUser();%>
   </head>
  
   <body>
-  		<p>Subscribe to receive daily blog updates!</p>
-  		<form action="/ofysubscribe" method="post">
+  		<p>Unsubscribe from daily blog updates.</p>
+  		<form action="/ofyunsubscribe" method="post">
 		<div></div>
 		<p>Email:</p>
-		<div><textarea name = "emailsubscribe" rows = "1" cols = "60"></textarea></div>
+		<div><textarea name = "emailunsubscribe" rows = "1" cols = "60"></textarea></div>
 		<p>First Name:</p>
-   		<div><textarea name = "firstnamesubscribe" rows = "1" cols = "60"></textarea></div>
+   		<div><textarea name = "firstnameunsubscribe" rows = "1" cols = "60"></textarea></div>
    		<p>Last Name:</p>
-   		<div><textarea name = "lastnamesubscribe" rows = "1" cols = "60"></textarea></div>
-		<div><input type="submit" value="Subscribe" /></div>
+   		<div><textarea name = "lastnameunsubscribe" rows = "1" cols = "60"></textarea></div>
+		<div><input type="submit" value="Unsubscribe" /></div>
 		<!--  
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
       -->
    	</form>
-   	
-   	<form action = "ofyguestbook2.jsp" method = "link">
-		<div>
-   			<input type = "submit" value = "Cancel">
-		</div>
-   	</form>
 
+<form action = "ofyguestbook2.jsp" method = "link">
+   		<div>
+   			<input type = "submit" value = "Cancel">
+   		</div>
+   	</form>
    	
  
     

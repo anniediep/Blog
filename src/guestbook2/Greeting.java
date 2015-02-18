@@ -28,6 +28,9 @@ public class Greeting implements Comparable<Greeting> {
     public String getTitle() {
     	return title;
     }
+    public Date getDate(){
+    	return date;
+    }
     @Override
     public int compareTo(Greeting other) {
         if (date.after(other.date)) {
