@@ -31,11 +31,19 @@ throws IOException {
 try {
 _logger.info("Cron has been executed");
 
+//MimeMessage message = new MimeMessage(session, req.getInputStream());
+
 ObjectifyService.register(Email.class);
 
 Query<Email> query = ofy().load().type(Email.class);
 List<Email> emailList = query.list();
 
+//if(!emailList.isEmpty()){
+//	System.out.println("Tester");
+//}
+//for(Email email : emailList){
+//	System.out.println(email.getEmail());
+//}
 String strCallResult = "";
 
 //Body of the email
@@ -60,7 +68,7 @@ strCallResult += "Thank you for using the Exam Helper Bot" + "\r\n";
 
 for(Email email: emailList){
 MimeMessage outMessage = new MimeMessage(session);
-outMessage.setFrom(new InternetAddress("admin@blogpostposting.appspotmail.com"));
+outMessage.setFrom(new InternetAddress("admin@blogpostblogging.appspotmail.com"));
 outMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(email.getEmail()));
 outMessage.setSubject("Daily Blog Updates");
 outMessage.setText(strCallResult);
@@ -69,13 +77,13 @@ Transport.send(outMessage);
 
 
 //testing
-/*
-MimeMessage outMessage = new MimeMessage(session);
-outMessage.setFrom(new InternetAddress("admin@blogpostposting.appspotmail.com"));
-outMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress("lawrencium.chang@gmail.com"));
-outMessage.setText("testingggg");
-Transport.send(outMessage);
-*/
+//MimeMessage outMessage = new MimeMessage(session);
+//outMessage.setFrom(new InternetAddress("admin@blogpostblogging.appspotmail.com"));
+//outMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(emailList.get(0).getEmail()));
+//outMessage.setSubject("Daily Blog Updates");
+//outMessage.setText("testingggg");
+//Transport.send(outMessage);
+
 
 }
 catch (Exception ex) {

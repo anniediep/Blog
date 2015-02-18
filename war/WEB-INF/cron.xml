@@ -3,6 +3,7 @@
 <cron>
 <url>/cron/cronjob</url>
 <description>Cron Job announces that it got invoked.</description>
-<schedule>every 1 minutes</schedule>
+<schedule>every day 9:00</schedule>
+<timezone>America/Chicago</timezone>
 </cron>
 </cronentries>

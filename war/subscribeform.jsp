@@ -24,13 +24,15 @@ User user = userService.getCurrentUser();%>
   		<form action="/ofysubscribe" method="post">
 		<div></div>
 		<p>Email:</p>
-		<div><textarea name = "emailaddress" rows = "1" cols = "60"></textarea></div>
+		<div><textarea name = "emailsubscribe" rows = "1" cols = "60"></textarea></div>
 		<p>First Name:</p>
-   		<div><textarea name = "firstname" rows = "1" cols = "60"></textarea></div>
+   		<div><textarea name = "firstnamesubscribe" rows = "1" cols = "60"></textarea></div>
    		<p>Last Name:</p>
-   		<div><textarea name = "lastname" rows = "1" cols = "60"></textarea></div>
+   		<div><textarea name = "lastnamesubscribe" rows = "1" cols = "60"></textarea></div>
 		<div><input type="submit" value="Subscribe" /></div>
+		<!--  
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
+      -->
    	</form>
 
    	
