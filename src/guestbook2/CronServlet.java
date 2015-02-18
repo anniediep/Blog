@@ -1,9 +1,12 @@
 package guestbook2;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
+import java.util.Date;
 
 import javax.mail.Address;
 import javax.mail.Session;
@@ -22,6 +25,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 @SuppressWarnings("serial")
 public class CronServlet extends HttpServlet {
 private static final Logger _logger = Logger.getLogger(CronServlet.class.getName());
+//@SuppressWarnings("null")
 public void doGet(HttpServletRequest req, HttpServletResponse resp)
 throws IOException {
 
@@ -31,6 +35,15 @@ throws IOException {
 try {
 _logger.info("Cron has been executed");
 
+//get the current date
+//Date currentdate = new Date();
+
+Calendar cal = Calendar.getInstance();
+
+System.out.println("Current date: " + cal.getTime());
+cal.add(Calendar.HOUR_OF_DAY, -24);
+System.out.println("24 hours back: " + cal.getTime());
+
 //get list of emails
 ObjectifyService.register(Email.class);
 Query<Email> query = ofy().load().type(Email.class);
@@ -38,38 +51,54 @@ List<Email> emailList = query.list();
 
 //get blog posts
 ObjectifyService.register(Greeting.class);
-List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).list();   
 
-//if(!emailList.isEmpty()){
-//	System.out.println("Tester");
-//}
-//for(Email email : emailList){
-//	System.out.println(email.getEmail());
-//}
+List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).list();   
+Collections.sort(greetings);
+//List<Greeting> send = null;
+
+//List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).filter("Date >", cal.getTime()).list();
+
 String strCallResult = "";
 
-//Body of the email
-
-for(Greeting body: greetings){
-strCallResult += "Testing" + "\r\n";
-strCallResult += body.getTitle() + "\r\n"; 
-strCallResult += body.getContent() + "\r\n"; 
-strCallResult += "==============================================" + "\r\n";
-strCallResult += "Thank you for subscribing to our daily blog updates" + "\r\n";
+for(Greeting send: greetings){
+//	System.out.println("testseoise;f: " + x);
+//	System.out.println("date of greeting: " + x.getDate());
+//	System.out.println("24hr back: " + cal.getTime());
+	if(send.getDate().after(cal.getTime())){
+		//System.out.println("the IF statement works!");
+		strCallResult += "Name: ";
+		strCallResult += send.getUser() + "\r\n";
+		strCallResult += "Date: ";
+		strCallResult += send.getDate() + "\r\n";
+		strCallResult += "Title: " + "\r\n";
+		strCallResult += send.getTitle() + "\r\n"; 
+		strCallResult += "Content: " + "\r\n";
+		strCallResult += send.getContent() + "\r\n"; 
+		strCallResult += "==============================================" + "\r\n";
+	}
 }
 
-/*
-ExamResult ER = ExamResultDAO.INSTANCE.getExamResult(studentID);
-strCallResult = "Student ID Number : " + ER.getIdNumber().getName() + "\r\n";
-strCallResult += "Student Name : " + ER.getName() + "\r\n";
-strCallResult += "Exam 1 Grade : " + ER.getExam1() + "\r\n";
-strCallResult += "Exam 2 Grade : " + ER.getExam2() + "\r\n";
-strCallResult += "=================================" + "\r\n";
-strCallResult += "Thank you for using the Exam Helper Bot" + "\r\n";
-*/
+
+
+//Body of the email
+//
+//for(Greeting body: send){
+////strCallResult += "Testing" + "\r\n";
+//strCallResult += "Name: ";
+//strCallResult += body.getUser() + "\r\n";
+//strCallResult += "Date: ";
+//strCallResult += body.getDate() + "\r\n";
+//strCallResult += "Title: " + "\r\n";
+//strCallResult += body.getTitle() + "\r\n"; 
+//strCallResult += "Body: " + "\r\n";
+//strCallResult += body.getContent() + "\r\n"; 
+//strCallResult += "==============================================" + "\r\n";
+//}
+strCallResult += "Thank you for subscribing to our daily blog updates!" + "\r\n";
+
+
 	
 //Send out Email
-
 for(Email email: emailList){
 MimeMessage outMessage = new MimeMessage(session);
 outMessage.setFrom(new InternetAddress("admin@blogpostblogging.appspotmail.com"));
@@ -78,16 +107,6 @@ outMessage.setSubject("Daily Blog Updates");
 outMessage.setText(strCallResult);
 Transport.send(outMessage);
 }
-
-
-//testing
-//MimeMessage outMessage = new MimeMessage(session);
-//outMessage.setFrom(new InternetAddress("admin@blogpostblogging.appspotmail.com"));
-//outMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(emailList.get(0).getEmail()));
-//outMessage.setSubject("Daily Blog Updates");
-//outMessage.setText("testingggg");
-//Transport.send(outMessage);
-
 
 }
 catch (Exception ex) {

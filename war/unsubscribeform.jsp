@@ -25,10 +25,12 @@ User user = userService.getCurrentUser();%>
 		<div></div>
 		<p>Email:</p>
 		<div><textarea name = "emailunsubscribe" rows = "1" cols = "60"></textarea></div>
+		<!-- 
 		<p>First Name:</p>
    		<div><textarea name = "firstnameunsubscribe" rows = "1" cols = "60"></textarea></div>
    		<p>Last Name:</p>
    		<div><textarea name = "lastnameunsubscribe" rows = "1" cols = "60"></textarea></div>
+   		-->
 		<div><input type="submit" value="Unsubscribe" /></div>
 		<!--  
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>

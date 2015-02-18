@@ -27,7 +27,9 @@ User user = userService.getCurrentUser();%>
 	<% if(user != null){ %>
 	<form action="/ofysign" method="post">
 		<div></div>
+		<p>Title:</p>
 		<div><textarea name = "title" rows = "1" cols = "60"></textarea></div>
+		<p>Content:</p>
    		<div><textarea name="content" rows="3" cols="60"></textarea></div> 
 		<div><input type="submit" value="Create a new post" /></div>
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
