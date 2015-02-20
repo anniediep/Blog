@@ -1,5 +1,8 @@
 package guestbook2;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.google.appengine.api.users.User;
 import com.googlecode.objectify.annotation.Entity;
@@ -28,9 +31,20 @@ public class Greeting implements Comparable<Greeting> {
     public String getTitle() {
     	return title;
     }
+    
+    /*
+    SimpleDateFormat f = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+	f.setTimeZone(TimeZone.getTimeZone("UTC"));
+	System.out.println(f.format(new Date()));
+    */
+    
     public Date getDate(){
+    	SimpleDateFormat f = new SimpleDateFormat("MMM-dd-yyyy HH:mm:ss");
+    	f.setTimeZone(TimeZone.getTimeZone("US/Central"));
+    	
     	return date;
     }
+    
     @Override
     public int compareTo(Greeting other) {
         if (date.after(other.date)) {

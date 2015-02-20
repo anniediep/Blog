@@ -14,7 +14,7 @@
   	 <link type="text/css" rel="stylesheet" href="/stylesheets/superhero.css" />
   </head>
  
-
+ 
  <div class="container">
  	<div class="jumbotron">
   		<div class="row">
@@ -24,34 +24,46 @@
 			</div>
 		</div>
  	</div>
- 	<div class="row">
- 	 <body>
- 		<div class="col-md-12">
- 		 
- 		<%
-		    String guestbookName = request.getParameter("guestbookName");
-		    if (guestbookName == null) {
-		        guestbookName = "default";
-		    }
-		    pageContext.setAttribute("guestbookName", guestbookName);
-		    UserService userService = UserServiceFactory.getUserService();
-		    User user = userService.getCurrentUser();
-		    if (user != null) {
-		      pageContext.setAttribute("user", user);
-		%>
- 		<p align="right">Hello, ${fn:escapeXml(user.nickname)}! Click 
-		<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">here</a> to log out.</p> 
-		<%} else {%>
-		<p align="right">Welcome. Please
-		<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">log in</a>
-		to create a post.</p>
-		<%}%>
-		</div>
- 		<div class="col-md-12 .col-md-offset-3">
- 			<%
+  <div class="row">
+  	<div class="col-md-12">
+  		  <body>
+ 
+			<%
+			    String guestbookName = request.getParameter("guestbookName");
+			    if (guestbookName == null) {
+			        guestbookName = "default";
+			    }
+			    pageContext.setAttribute("guestbookName", guestbookName);
+			    UserService userService = UserServiceFactory.getUserService();
+			    User user = userService.getCurrentUser();
+			    if (user != null) {
+			      pageContext.setAttribute("user", user);
+			%>
+			<p align="right">Hello, ${fn:escapeXml(user.nickname)}! Click 
+			<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">here</a> to log out.</p> 
+			<%
+			    } else {
+			%>
+			<p align="right">Welcome. Please
+			<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">log in</a>
+			to create a post.</p>
+			<%
+			    }
+			%>
+			 
+			<%
 				ObjectifyService.register(Greeting.class);
 				List<Greeting> greetings = ObjectifyService.ofy().load().type(Greeting.class).list();   
+				List<Greeting> posts;
 				Collections.sort(greetings); 
+				
+				if(greetings.size() > 5){
+					posts = greetings.subList(0, 5);
+				}
+				else{
+					posts = greetings;
+				}
+				
 				
 			    //DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			    //Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
@@ -69,56 +81,77 @@
 			    } else {
 			        %>
 			        <legend>Stories</legend>
-			        <div class="col-md-10 .col-md-offset-3">
 			        <%
-			        for (Greeting greeting : greetings) {
+			        for (Greeting greeting : posts) {
 			        	pageContext.setAttribute("greeting_title", greeting.getTitle());
 			            pageContext.setAttribute("greeting_content",  greeting.getContent());
 			            pageContext.setAttribute("greeting_date",  greeting.getDate());
 			            if (greeting.getUser() == null) {
 			                %>
+			                <div class="col-md-12">
 			                <p>An anonymous person wrote:</p>
+			                </div>
 			                <%
 			            } else {
 			                pageContext.setAttribute("greeting_user", greeting.getUser());
 			                %>
+			                <div class="col-md-12">
 			                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote on <b>${fn:escapeXml(greeting_date)}</b>:</p>
+			                </div>
 			                <%
 			            }
 			            %>
+			            <div class="col-md-12">
 			            <blockquote><font face="sans-serif">${fn:escapeXml(greeting_title)}</font></blockquote>
 			            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
+			            </div>
 			            <%
 			        }
 			    }
 			%>
-			</div>
 			
- 		</div>
- 		
- 		<div class="col-md-10 .col-md-offset-3">
- 			<p> <a href = "bloghome.jsp">Click here</a> to return to the home page. </p>
- 		
- 		</div>
- 		</body>
- 	</div>
- 	
- </div>
-
-
+			<% 
+			if(user != null){ %>
+			<form action = "createpost.jsp" method = "link">
+				<div>
+					<input class="btn btn-default" type = "submit" value = "Create a new post" />
+				</div>
+			</form>
+			
+			<form action = "subscribeform.jsp" method = "link">
+				<div>
+					<input class="btn btn-default" type = "submit" value = "Subscribe" />
+				</div>
+			</form>
+			
+			<form action = "unsubscribeform.jsp" method = "link">
+				<div>
+					<input class="btn btn-default" type = "submit" value = "Unsubscribe" />
+				</div>
+			</form>
+			<%
+			}%>
+			
+			
+			
+			
+			<form action = "allposts.jsp" method = "link">
+				<div>
+					<input class="btn btn-default" type = "submit" value = "Show all posts" />
+				</div>
+			</form>
+			
+			 
+		</body>
+  	</div>
+  </div>
+</div>
 
  
+  
 
-
-
-
-<!-- 
-<form action = "allposts.jsp" method = "link">
-	<div>
-		<input type = "submit" value = "Show all posts" />
-	</div>
-</form>
- -->
  
  
+ 
+
 </html>

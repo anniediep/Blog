@@ -11,14 +11,27 @@
 
 <html>
   <head>
-  	 <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  	 <link type="text/css" rel="stylesheet" href="/stylesheets/superhero.css" />
   </head>
- 
-  <body>
-  
-  	<p> Please login to create a post.</p>
-  	<p>
-  	<a href = "ofyguestbook2.jsp" >Click here</a> to return to the home page.</p>
-  	
-  	</body>
+ 	<div class="container">
+ 		<div class="jumbotron">
+  		<div class="row">
+  			<div class="col-md-6"><h1>What's your story?</h1></div>
+			<div class="col-md-6">	
+			  	<img src="http://images4.fanpop.com/image/photos/20800000/DOMO-D-domo-kun-20858807-500-306.png" alt="Responsive image">
+			</div>
+		</div>
+ 	</div>
+  		<div class="row">
+	  		<div class="col-md-12">
+			  <body>
+			  
+			  	<h2> Please login to create a post.</h2>
+			  	<p>
+			  	<a href = "bloghome.jsp" >Click here</a> to return to the home page.</p>
+			  	
+			  	</body>
+			 </div>
+		</div>
+	</div>
 </html>

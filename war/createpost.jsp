@@ -16,38 +16,50 @@ User user = userService.getCurrentUser();%>
     
 <html>
   <head>
-  	 <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  	 <link type="text/css" rel="stylesheet" href="/stylesheets/superhero.css" />
   </head>
  
-  <body>
-  		<p>Post submission form will go here!</p>
-  		
-  		
-  		
-	<% if(user != null){ %>
-	<form action="/ofysign" method="post">
-		<div></div>
-		<p>Title:</p>
-		<div><textarea name = "title" rows = "1" cols = "60"></textarea></div>
-		<p>Content:</p>
-   		<div><textarea name="content" rows="3" cols="60"></textarea></div> 
-		<div><input type="submit" value="Create a new post" /></div>
-      <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
-   	</form>
-   	
-   	   	<form action = "ofyguestbook2.jsp" method = "link">
-   		<div>
-   			<input type = "submit" value = "Cancel">
-   		</div>
-   	</form>
-   	<% } %>
-   	
-   	<% if(user == null){ %>
-  			<p>Please <a href = "ofyguestbook2.jsp">log in</a> to create a post.</p>
-  			<% } %>
-   	
- 
-    
-  </body>
-  
+ <body>
+ <div class="container">
+ 	<div class="jumbotron">
+  		<div class="row">
+  			<div class="col-md-6"><h1>What's your story?</h1></div>
+			<div class="col-md-6">	
+			  	<img src="http://images4.fanpop.com/image/photos/20800000/DOMO-D-domo-kun-20858807-500-306.png" alt="Responsive image">
+			</div>
+		</div>
+ 	</div>
+ 	<div class="row">
+ 		<legend>This is where your life defining post goes!</legend>
+ 		<div class="col-md-10 .col-md-offset-3">
+	    <% if(user != null){ %>
+			<form action="/ofysign" method="post">
+				<label for="textArea" class="col-lg-2 control-label">Title</label>
+				<div col-lg-10>
+					<textarea name = "title" rows = "1" cols = "80"></textarea>
+				</div>
+				<p></p>
+				<label for="textArea" class="col-lg-2 control-label">Content</label>
+		   		<div col-lg-10>
+		   		<textarea name="content" rows="3" cols="80"></textarea>
+		   		</div> 
+		   		<br>
+					<div class="col-lg-10 col-lg-offset-2"><input class="btn btn-default" type="submit" value="Create a new post" /></div>
+		      		<input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
+		   	</form>
+		   	<br><br>
+		   	<form action = "bloghome.jsp" method = "link">
+		   		
+		   		<div class="col-lg-10 col-lg-offset-2"><input class="btn btn-primary" type = "submit" value = "Cancel"></div>
+		   		
+		   	</form>
+		 <% } %>
+		   	
+	   	<% if(user == null){ %>
+ 			<p>Please <a href = "bloghome.jsp">log in</a> to create a post.</p>
+ 		<% } %>	
+ 		</div>
+ 	</div>	    	
+</div>
+</body>   
 </html>

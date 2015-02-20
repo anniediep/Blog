@@ -81,17 +81,17 @@ for(Greeting send: greetings){
 //if new posts were made, email has content, so start sending out emails
 //otherwise, no emails will be sent
 if(strCallResult != ""){
-	strCallResult += "Thank you for subscribing to our daily blog updates!" + "\r\n";
+	strCallResult += "Thank you for subscribing to our daily updates!" + "\r\n";
 	for(Email email: emailList){
 		MimeMessage outMessage = new MimeMessage(session);
-		outMessage.setFrom(new InternetAddress("admin@blogpostblogging.appspotmail.com"));
+		//do not forget to change the admin email when switching app ID's!!!!
+		outMessage.setFrom(new InternetAddress("admin@blogpostposting.appspotmail.com"));
 		outMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(email.getEmail()));
 		outMessage.setSubject("Daily Blog Updates");
 		outMessage.setText(strCallResult);
 		Transport.send(outMessage);
 		}
 }
-
 
 //Body of the email
 //

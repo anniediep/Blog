@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class OfySignGuestbook2Servlet extends HttpServlet {
+public class OfyBlogHome extends HttpServlet {
 	static {
         ObjectifyService.register(Greeting.class);
     }
@@ -43,7 +43,7 @@ public class OfySignGuestbook2Servlet extends HttpServlet {
         //DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         //datastore.put(greeting);
  
-        resp.sendRedirect("/ofyguestbook2.jsp");
+        resp.sendRedirect("/bloghome.jsp");
         }
         
         else{
